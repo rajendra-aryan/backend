@@ -145,8 +145,8 @@ const loginUser = asyncHandler(async(req,res) => {
 
 const logoutUser = asyncHandler(async(req,res) => {
     //clear cookies
-    User.findByIdAndUpdate(req.user._id,{
-        $set:{refreshToken: undefined}
+    await User.findByIdAndUpdate(req.user._id,{
+        $unset:{refreshToken: 1}  //this removes the field from the document
     },
     {
         new:true
@@ -482,7 +482,7 @@ export {
     getCurrentUser,
     updateAccountDetails,
     updateUserAvatar,
-    updateUserAvatar,
+    updateUserCoverImage,
     getUserChannelProfile,
     getWatchHistory
 };
